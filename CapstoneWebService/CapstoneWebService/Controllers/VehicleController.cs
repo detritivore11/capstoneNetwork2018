@@ -10,11 +10,11 @@ namespace CapstoneWebService.Controllers
 {
     public class VehicleController : ApiController
     {
-        VehicleInfo[] info = new VehicleInfo[]
+        List<VehicleInfo> info = new List<VehicleInfo>
         {
-            new VehicleInfo { VID = 1, Version = "1.1.1", APIKey = "test", Params = new string[]{"temp"} },
-            new VehicleInfo { VID = 2, Version = "1.2.3", APIKey = "test", Params = new string[]{"temp" } },
-            new VehicleInfo { VID = 3, Version = "1.2.1", APIKey = "test", Params = new string[]{"temp" } }
+            new VehicleInfo (1, "1.1.1", "test"),
+            new VehicleInfo (2, "2.1.1", "test"),
+            new VehicleInfo (3, "1.2.3", "test")
         };
 
         public IEnumerable<VehicleInfo> GetAllInfo()
@@ -31,8 +31,9 @@ namespace CapstoneWebService.Controllers
             }
             return Ok(select);
         }
-        public void PostInfo()
+        public void PostInfo(string value)
         {
+
         }
     }
 }
