@@ -1,4 +1,5 @@
 ﻿using CapstoneWebService.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +11,39 @@ namespace CapstoneWebService.Controllers
 {
     public class VehicleController : ApiController
     {
-        List<VehicleInfo> info = new List<VehicleInfo>
+        public IHttpActionResult GetAllInfo()
         {
-            new VehicleInfo (1, "1.1.1", "test"),
-            new VehicleInfo (2, "2.1.1", "test"),
-            new VehicleInfo (3, "1.2.3", "test")
-        };
-
-        public IEnumerable<VehicleInfo> GetAllInfo()
-        {
-            return info;
+            List<VehicleInfo> info = VehicleDB.GetAll();
+            string result = JsonConvert.SerializeObject(info);
+            return Ok(result);
         }
 
         public IHttpActionResult GetInfo(int id)
         {
-            var select = info.FirstOrDefault((v) => v.VID == id);
-            if (select == null)
+            VehicleInfo info = VehicleDB.Get(id);
+            if (info != null)
+            {
+                string result = JsonConvert.SerializeObject(info);
+                return Ok(result);
+            }
+            else
             {
                 return NotFound();
             }
-            return Ok(select);
+            
         }
-        public void PostInfo(string value)
+        public IHttpActionResult PostInfo(string value)
         {
-
+            try
+            {
+                VehicleInfo vInfo = JsonConvert.DeserializeObject<VehicleInfo>(value);
+                VehicleDB.Add(vInfo);
+                return Ok(value);
+            }
+            catch (JsonException)
+            {
+                return NotFound();
+            }
         }
     }
 }

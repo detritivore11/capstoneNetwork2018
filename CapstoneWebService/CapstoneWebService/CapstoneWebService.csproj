@@ -90,6 +90,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Param.cs" />
+    <Compile Include="Models\VehicleDB.cs" />
     <Compile Include="Models\VehicleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
