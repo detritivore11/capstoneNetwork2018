@@ -7,8 +7,12 @@ namespace CapstoneWebService.Models
 {
     public class VehicleDB
     {
-        private static List<VehicleInfo> testDB = new List<VehicleInfo>();
-        internal static void Add(VehicleInfo vInfo)
+        private static List<VehicleInfo> testDB;
+        public static void Init()
+        {
+            testDB = new List<VehicleInfo>();
+        }
+        public static void Add(VehicleInfo vInfo)
         {
             int index = testDB.FindIndex((v) => v.ID == vInfo.ID);
             if (index < 0)
@@ -20,12 +24,12 @@ namespace CapstoneWebService.Models
                 testDB[index] = vInfo;
             }
         }
-        internal static VehicleInfo Get(int id)
+        public static VehicleInfo Get(int id)
         {
             var select = testDB.FirstOrDefault((v) => v.ID == id);
             return select;
         }
-        internal static List<VehicleInfo> GetAll()
+        public static List<VehicleInfo> GetAll()
         {
             return testDB;
         }
