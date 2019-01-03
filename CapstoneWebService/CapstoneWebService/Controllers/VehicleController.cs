@@ -12,10 +12,16 @@ namespace CapstoneWebService.Controllers
 {
     public class VehicleController : ApiController
     {
-
+        private VehicleDB db = new VehicleDB();
         public IHttpActionResult GetAllInfo()
         {
-            List<VehicleInfo> info = VehicleDB.GetAll();
+            var info = from b in db.VehicleInfos
+                       select new VehicleDTO()
+                       {
+                           Id = b.Id,
+                           Title = b.Title,
+                           AuthorName = b.Author.Name
+                       };
             string result = JsonConvert.SerializeObject(info);
             return Ok(result);
         }

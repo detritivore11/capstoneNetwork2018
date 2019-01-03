@@ -126,3 +126,7 @@ C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebS
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\obj\Debug\CapstoneWebService.csproj.CopyComplete
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\obj\Debug\CapstoneWebService.dll
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\obj\Debug\CapstoneWebService.pdb
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.dll
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.SqlServer.dll
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.xml
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.SqlServer.xml

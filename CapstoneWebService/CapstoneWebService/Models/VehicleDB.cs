@@ -2,36 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace CapstoneWebService.Models
 {
-    public class VehicleDB
+    public class VehicleDB : DbContext
     {
-        private static List<VehicleInfo> testDB;
-        public static void Init()
+        public VehicleDB() : base("name=VehicleDB")
         {
-            testDB = new List<VehicleInfo>();
+            Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
-        public static void Add(VehicleInfo vInfo)
-        {
-            int index = testDB.FindIndex((v) => v.ID == vInfo.ID);
-            if (index < 0)
-            {
-                testDB.Add(vInfo);
-            }
-            else
-            {
-                testDB[index] = vInfo;
-            }
-        }
-        public static VehicleInfo Get(int id)
-        {
-            var select = testDB.FirstOrDefault((v) => v.ID == id);
-            return select;
-        }
-        public static List<VehicleInfo> GetAll()
-        {
-            return testDB;
-        }
+        public DbSet<VehicleInfo> VehicleInfos { get; set; }
+        public DbSet<Param> Params { get; set; }
     }
 }
