@@ -14,5 +14,9 @@ namespace CapstoneWebService.Models
         }
         public DbSet<VehicleInfo> VehicleInfos { get; set; }
         public DbSet<Param> Params { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Param>().HasKey(p => new { p.ID, p.VehicleID });
+        }
     }
 }

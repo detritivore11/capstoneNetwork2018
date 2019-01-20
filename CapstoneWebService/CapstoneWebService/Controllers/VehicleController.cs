@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace CapstoneWebService.Controllers
 {
@@ -15,23 +17,22 @@ namespace CapstoneWebService.Controllers
         private VehicleDB db = new VehicleDB();
         public IHttpActionResult GetAllInfo()
         {
-            var info = from b in db.VehicleInfos
-                       select new VehicleDTO()
-                       {
-                           Id = b.Id,
-                           Title = b.Title,
-                           AuthorName = b.Author.Name
-                       };
-            string result = JsonConvert.SerializeObject(info);
+            var info = db.VehicleInfos.Include(x => x.Params);
+            string result = JsonConvert.SerializeObject(info, 
+                new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
             return Ok(result);
         }
 
-        public IHttpActionResult GetInfo(int id)
+        public async Task<IHttpActionResult> GetInfo(int id)
         {
-            VehicleInfo info = VehicleDB.Get(id);
+            var info = await db.VehicleInfos.Include(x => x.Params).SingleOrDefaultAsync(x => x.ID == id);
             if (info != null)
             {
-                string result = JsonConvert.SerializeObject(info);
+                string result = JsonConvert.SerializeObject(info, 
+                    new JsonSerializerSettings() {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
                 return Ok(result);
             }
             else
@@ -49,12 +50,20 @@ namespace CapstoneWebService.Controllers
                 //string value = System.Text.Encoding.UTF8.GetString(input);
                 string value = await Request.Content.ReadAsStringAsync();
                 VehicleInfo vInfo = JsonConvert.DeserializeObject<VehicleInfo>(value);
-                VehicleDB.Add(vInfo);
+                var parms = vInfo.Params;
+                db.VehicleInfos.AddOrUpdate(vInfo);
+                await db.SaveChangesAsync();
+                foreach (var parm in parms)
+                {
+                    parm.VehicleID = vInfo.ID;
+                    db.Params.AddOrUpdate(parm);
+                    await db.SaveChangesAsync();
+                }
                 return Ok(value);
             }
             catch (JsonException)
             {
-                return NotFound();
+                return BadRequest();
             }
         }
     }
