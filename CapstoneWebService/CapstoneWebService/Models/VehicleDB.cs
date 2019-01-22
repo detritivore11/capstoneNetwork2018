@@ -8,7 +8,7 @@ namespace CapstoneWebService.Models
 {
     public class VehicleDB : DbContext
     {
-        public VehicleDB() : base("name=VehicleDB")
+        public VehicleDB() : base(DBHelper.GetRDSConnectionString())
         {
             Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }

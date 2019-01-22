@@ -111,6 +111,7 @@
       <DependentUpon>201901152250488_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Param.cs" />
     <Compile Include="Models\VehicleDB.cs" />
     <Compile Include="Models\VehicleInfo.cs" />
