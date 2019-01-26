@@ -7,7 +7,7 @@ namespace CapstoneWebService.Migrations
     using CapstoneWebService.Models;
     using Newtonsoft.Json;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CapstoneWebService.Models.VehicleDB>
+    internal sealed class Configuration : DbMigrationsConfiguration<VehicleDB>
     {
         public Configuration()
         {

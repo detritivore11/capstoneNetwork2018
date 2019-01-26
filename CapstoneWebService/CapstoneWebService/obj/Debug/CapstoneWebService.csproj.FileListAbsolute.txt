@@ -130,5 +130,9 @@ C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebS
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.SqlServer.dll
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.xml
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\EntityFramework.SqlServer.xml
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\Google.Protobuf.dll
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\MySql.Data.dll
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\Google.Protobuf.xml
+C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\bin\MySql.Data.xml
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\obj\Debug\CapstoneWebService.Migrations.Initial.resources
 C:\Users\User\StudioProjects\capstoneNetwork2018\CapstoneWebService\CapstoneWebService\obj\Debug\CapstoneWebService.csproj.GenerateResource.cache

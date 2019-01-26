@@ -98,7 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -106,12 +108,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901152250488_Initial.cs" />
-    <Compile Include="Migrations\201901152250488_Initial.Designer.cs">
-      <DependentUpon>201901152250488_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201901242237363_Initial.cs" />
+    <Compile Include="Migrations\201901242237363_Initial.Designer.cs">
+      <DependentUpon>201901242237363_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\Param.cs" />
     <Compile Include="Models\VehicleDB.cs" />
     <Compile Include="Models\VehicleInfo.cs" />
@@ -131,8 +132,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901152250488_Initial.resx">
-      <DependentUpon>201901152250488_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901242237363_Initial.resx">
+      <DependentUpon>201901242237363_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

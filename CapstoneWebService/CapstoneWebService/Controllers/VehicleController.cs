@@ -14,14 +14,18 @@ namespace CapstoneWebService.Controllers
 {
     public class VehicleController : ApiController
     {
-        private VehicleDB db = new VehicleDB();
+        private VehicleDB db = VehicleDB.Create();
         public IHttpActionResult GetAllInfo()
         {
             var info = db.VehicleInfos.Include(x => x.Params);
-            string result = JsonConvert.SerializeObject(info, 
-                new JsonSerializerSettings()
+            foreach (var vehicle in info) 
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                vehicle.Key = "";
+            }
+            string result = JsonConvert.SerializeObject(info, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
             return Ok(result);
         }
 
@@ -30,6 +34,7 @@ namespace CapstoneWebService.Controllers
             var info = await db.VehicleInfos.Include(x => x.Params).SingleOrDefaultAsync(x => x.ID == id);
             if (info != null)
             {
+                    info.Key = "";
                 string result = JsonConvert.SerializeObject(info, 
                     new JsonSerializerSettings() {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
