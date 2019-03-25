@@ -10,6 +10,8 @@
 // History:
 //  2019-01-03 by Tamkin Rahman
 //  - Created.
+//  2019-03-18 by Tamkin Rahman
+//  - Update with "Speed Simulation" feature, where speed updates are posted every 100 ms.
 // ************************************************************************************************
 
 using System;
@@ -34,23 +36,27 @@ namespace VirtualVehicle.ViewModels
         private const string KEY = "asdf";
         private const string VERSION = "V0.01";
 
+        private const int SPEED_ID = 1;
+        private const int SPEED_SIMULATION_DELAY_ms = 100;
+        private const double SPEED_SIMULATION_INCREMENTS = 0.125;
+
         private List<Param> atvParams = new List<Param>()
         {
-            { new Param() { Name = "Active PCodes",                   ID = 0,  Value = "",       Type = "string", Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Speed",                           ID = 1,  Value = "0.0",    Type = "double", Units = "kph", Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Low Battery",                     ID = 2,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "High Battery",                    ID = 3,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Low Oil",                         ID = 4,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Air Pressure Sensor Fault",       ID = 5,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Air Temperature Sensor Fault",    ID = 6,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Engine Temperature Sensor Fault", ID = 7,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Throttle Position Sensor Fault",  ID = 8,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Fuel Pump Fault",                 ID = 9,  Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Injector Fault",                  ID = 10, Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Engine Fan Fault",                ID = 11, Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "ECM Fault",                       ID = 12, Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "CAN Fault",                       ID = 13, Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
-            { new Param() { Name = "Fault Active",                    ID = 14, Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} }
+            { new Param() { Name = "Active PCodes",                   ID = 0,         Value = "",       Type = "string", Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Speed",                           ID = SPEED_ID,  Value = "0.0",    Type = "double", Units = "kph", Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Low Battery",                     ID = 2,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "High Battery",                    ID = 3,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Low Oil",                         ID = 4,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Air Pressure Sensor Fault",       ID = 5,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Air Temperature Sensor Fault",    ID = 6,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Engine Temperature Sensor Fault", ID = 7,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Throttle Position Sensor Fault",  ID = 8,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Fuel Pump Fault",                 ID = 9,         Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Injector Fault",                  ID = 10,        Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Engine Fan Fault",                ID = 11,        Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "ECM Fault",                       ID = 12,        Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "CAN Fault",                       ID = 13,        Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} },
+            { new Param() { Name = "Fault Active",                    ID = 14,        Value = "False",  Type = "bool",   Units = "",    Timestamp = 0, Message = ""} }
 
         };
 
@@ -218,6 +224,48 @@ namespace VirtualVehicle.ViewModels
                 return result;
             }
         }
+
+        private bool speedSimulationEnabled = false;
+        public bool SpeedSimulationEnabled
+        {
+            get
+            {
+                return this.speedSimulationEnabled;
+            }
+            set
+            {
+                if (value != this.speedSimulationEnabled)
+                {
+                    this.speedSimulationEnabled = value;
+                    NotifyPropertyChanged("SpeedSimulationNotEnabled");
+
+                    if (value)
+                    {
+                        if (!this.speedSimulation.IsBusy)
+                        {
+                            this.speedSimulation.RunWorkerAsync();
+                        }
+                    }
+                    else
+                    {
+                        if (this.speedSimulation.IsBusy)
+                        {
+                            this.speedSimulation.CancelAsync();
+                        }
+                    }
+                }
+            }
+        }
+        public bool SpeedSimulationNotEnabled
+        {
+            get
+            {
+                return !this.SpeedSimulationEnabled;
+            }
+        }
+
+        public double MinSpeedSimulation { get; set; } = 0.0;
+        public double MaxSpeedSimulation { get; set; } = 10.0;
         #endregion
 
         public MainWindowViewModel()
@@ -225,6 +273,7 @@ namespace VirtualVehicle.ViewModels
             this.virtualvehicle = new VehicleDiagnostics(DEFAULT_ID, VERSION, KEY, BASE_URL);
 
             this.AppendAtvParams();
+            this.SpeedSimulation_init();
         }
 
         public void AppendAtvParams()
@@ -288,6 +337,96 @@ namespace VirtualVehicle.ViewModels
 
             NotifyPropertyChanged("SelectedBoolComboBoxIndex");
         }
+
+        #region SpeedSimulationBackgroundWorker
+        private BackgroundWorker speedSimulation;
+
+        private void SpeedSimulation_init()
+        {
+            this.speedSimulation = new BackgroundWorker();
+            this.speedSimulation.WorkerSupportsCancellation = true;
+            this.speedSimulation.DoWork += this.SpeedSimulation_DoWork;
+            this.speedSimulation.RunWorkerCompleted += this.SpeedSimulation_RunWorkerCompleted;
+        }
+
+        private void SpeedSimulation_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            Param speed = null;
+            String error = string.Empty;
+
+            bool error_occurred = false;
+
+            // A break statement is used to break out of this loop.
+            foreach (Param parm in this.virtualvehicle.vehicle.Params)
+            {
+                if (parm.ID == SPEED_ID)
+                {
+                    speed = parm;
+                    break;
+                }
+            }
+
+            if (speed != null)
+            {
+                while (!error_occurred && !worker.CancellationPending)
+                {
+                    for (double ix = this.MinSpeedSimulation; (!worker.CancellationPending && (ix <= this.MaxSpeedSimulation)); ix += SPEED_SIMULATION_INCREMENTS)
+                    {
+                        // Reference: https://stackoverflow.com/questions/3354893
+                        long now = (long)DateTime.Now.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+                        speed.Timestamp = now;
+                        speed.Value = ix.ToString();
+
+                        if (!this.virtualvehicle.PostData(out error))
+                        {
+                            error_occurred = true;
+                        }
+
+                        System.Threading.Thread.Sleep(SPEED_SIMULATION_DELAY_ms);
+                    }
+                    for (double ix = this.MaxSpeedSimulation; (!worker.CancellationPending && (ix >= this.MinSpeedSimulation)); ix -= SPEED_SIMULATION_INCREMENTS)
+                    {
+                        // Reference: https://stackoverflow.com/questions/3354893
+                        long now = (long)DateTime.Now.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+                        speed.Timestamp = now;
+                        speed.Value = ix.ToString();
+
+                        if (!this.virtualvehicle.PostData(out error))
+                        {
+                            error_occurred = true;
+                        }
+
+                        System.Threading.Thread.Sleep(SPEED_SIMULATION_DELAY_ms);
+                    }
+                }
+            }
+            else
+            {
+                error = "Parameters not loaded properly!";
+                error_occurred = true;
+            }
+
+            if (error_occurred)
+            {
+                throw new Exception(error);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void SpeedSimulation_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                System.Windows.MessageBox.Show(string.Format("Error occurred during simulation, with the following error: {0}", e.Error.Message), "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                this.SpeedSimulationEnabled = false;
+                NotifyPropertyChanged("SpeedSimulationEnabled");
+            }
+        }
+        #endregion
 
         #region Commands
 

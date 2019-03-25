@@ -10,6 +10,8 @@
 // History:
 //  2019-01-03 by Tamkin Rahman
 //  - Created.
+//  2019-03-19 by Tamkin Rahman
+//  - Increment to V0.02.
 // ************************************************************************************************
 
 using System;
@@ -22,6 +24,6 @@ namespace VirtualVehicle.Version
 {
     internal class Versions
     {
-        public static string version = "V0.01";
+        public static string version = "V0.02";
     }
 }

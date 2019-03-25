@@ -32,6 +32,9 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Height="20">
             <MenuItem Header="File">
@@ -61,7 +64,7 @@
             <Label Grid.Column="0" Content="Set Value: " Width="100"></Label>
             <TextBox Grid.Column="1" Text="{Binding StringValue}" Width="100" Visibility="{Binding ShowStringTextBox}"></TextBox>
             <ComboBox Grid.Column="1" ItemsSource="{Binding BoolComboBoxValues}" SelectedIndex="{Binding SelectedBoolComboBoxIndex}" Visibility="{Binding ShowBoolComboBox}"></ComboBox>
-            <Button Grid.Column="3" Content="Send" Command="{Binding SendCommand}" Width="100" Height="30" Margin="2"></Button>
+            <Button Grid.Column="3" Content="Send" Command="{Binding SendCommand}" Width="100" Height="30" Margin="2" IsEnabled="{Binding SpeedSimulationNotEnabled}"></Button>
         </Grid>
         <Grid Grid.Row="4" Margin="10">
             <ListBox ItemsSource="{Binding Parameters}" ItemTemplate="{StaticResource paramsTemplate}" SelectedItem="{Binding SelectedParam}"></ListBox>
@@ -75,6 +78,29 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Set All Faults Active" Command="{Binding SetAllActiveCommand}" Width="120" Height="30" Margin="2"></Button>
             <Button Grid.Column="1" Content="Set All Faults Inactive" Command="{Binding SetAllInactiveCommand}" Width="120" Height="30" Margin="2"></Button>
+        </Grid>
+        <Separator Grid.Row="6" Margin="10"></Separator>
+        <Grid Grid.Row="7" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0" Content="Speed Simulation Enable" IsChecked="{Binding SpeedSimulationEnabled}"></CheckBox>
+        </Grid>
+        <Grid Grid.Row="8" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Width="100" Text="{Binding MinSpeedSimulation}" IsEnabled="{Binding SpeedSimulationNotEnabled}"></TextBox>
+            <Label Grid.Column="1" Content=" kph "></Label>
+            <Label Grid.Column="2" Content="  to  "></Label>
+            <TextBox Grid.Column="3" Width="100" Text="{Binding MaxSpeedSimulation}" IsEnabled="{Binding SpeedSimulationNotEnabled}"></TextBox>
+            <Label Grid.Column="4" Content=" kph "></Label>
         </Grid>
     </Grid>
 </Window>
