@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="VehicleDB-Web.config Connection String" description="VehicleDB Connection String used in web.config by the application to access the database." defaultValue="Data Source=agbot-db.cghcib6agpij.us-west-2.rds.amazonaws.com,1433;Initial Catalog=agbot-db;User ID=agbot;Password=70X45dPEmTDIcaOBsoRV;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Frankie\\Documents\\agbotwebservice\\agbotwebservice\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='VehicleDB']/@connectionString" />
+  </parameter>
+</parameters>

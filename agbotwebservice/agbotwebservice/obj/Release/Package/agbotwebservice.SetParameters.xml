@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Default Web Site/" />
+  <setParameter name="VehicleDB-Web.config Connection String" value="Data Source=agbot-db.cghcib6agpij.us-west-2.rds.amazonaws.com,1433;Initial Catalog=agbot-db;User ID=agbot;Password=70X45dPEmTDIcaOBsoRV;" />
+</parameters>
