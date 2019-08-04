@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="VehicleDB-Web.config Connection String" description="VehicleDB Connection String used in web.config by the application to access the database." defaultValue="Data Source=capstonedb.ctvopvcgszao.us-west-2.rds.amazonaws.com,1433;Initial Catalog=capstonedb;User ID=detritivore;Password=BZE5Nu9dWwj2wrCg;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\User\\StudioProjects\\capstoneNetwork2018\\CapstoneWebService\\CapstoneWebService\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='VehicleDB']/@connectionString" />
-  </parameter>
-</parameters>

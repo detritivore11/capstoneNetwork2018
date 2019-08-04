@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <setParameter name="IIS Web Application Name" value="Default Web Site/" />
-  <setParameter name="VehicleDB-Web.config Connection String" value="Data Source=capstonedb.ctvopvcgszao.us-west-2.rds.amazonaws.com,1433;Initial Catalog=capstonedb;User ID=detritivore;Password=BZE5Nu9dWwj2wrCg;" />
-</parameters>
