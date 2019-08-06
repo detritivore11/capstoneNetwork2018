@@ -8,6 +8,7 @@ a Microsoft SQL Server on an Amazon Relational Database Services (RDS) instance.
 mostly for future members of the agBOT team and the Agriculture Ergonomics Lab at the University of Manitoba, 
 but also for anyone with a general interest on how to set up a similar project.
 
+
 ## Code Summmary
 
 The _Controllers_ folder contains the logic for controlling how the web service reacts to requests.
@@ -33,7 +34,8 @@ They both include tools and libraries that will be used for the project.
 	for the extension to be installed properly.
 	
 	![AWS Extension](/docs/aws_extension.jpg)
-	
+
+
 ### AWS Elastic Beanstalk and RDS Configuration
 * [Create an AWS account](https://aws.amazon.com/). An AWS account offers 12 months free for certain services, including 
 750 hours per month of an Amazon RDS db.t2.micro database usage (which will run the MS SQL database) and 750 hours per month of Windows t2.micro instance usage (which will run the web app on an Elastic Beanstalk instance).
@@ -43,16 +45,17 @@ When setting up a new application environment, select the .NET (Windows/IIS) pla
 
 * Follow the instructions under _**The Launching and Connecting to an External Amazon RDS Instance in a Default VPC**_ heading from the AWS How-to guide on [Using Elastic Beanstalk with Amazon Relational Database Service](https://github.com/awsdocs/aws-elastic-beanstalk-developer-guide/blob/master/doc_source/AWSHowTo.RDS.md).
 
+
 ## Migrating to new EBS and RDS Instances
 
-* Clone the [GitHub Repository](https://github.com/detritivore11/capstoneNetwork2018.git).
+* Clone this [GitHub Repository](https://github.com/detritivore11/capstoneNetwork2018.git).
 
 * Open the project in Visual Studio IDE. Edit the **Web.Config** file to modify the app settings with the properties of 
 the database you just created.
 
 ![Web.Config file modification](/docs/database_configuration.JPG)
 
-* Enable Inbound traffic from Anywhere on the MS SQL database instance. This should only be temporary during the development process.
+* Enable Inbound traffic from *Anywhere* on the MS SQL database instance by following [this guide](https://github.com/awsdocs/aws-elastic-beanstalk-developer-guide/blob/master/doc_source/AWSHowTo.RDS.md). This should only be temporary during the development process.
 
 * Open the Package Manager Console. From the Tools menu select **NuGet Package Manager > Package Manager Console**.
 
