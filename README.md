@@ -30,7 +30,7 @@ They both include tools and libraries that will be used for the project.
 	* Open the Visual Studio IDE and go to **Tools > Extensions and Updates > Online > Visual Studio Marketplace**. 
 	Search for AWS and download the AWS Toolkit for Visual Studio 2017 and 2019. You may need to restart the Visual Studio IDE 
 	for the extension to be installed properly.
-	![AWS Extenstion](/docs/aws_extenstion.jpg)
+	![AWS Extension](/docs/aws_extension.jpg)
 	
 ### AWS Elastic Beanstalk and RDS Configuration
 * [Create an AWS account](https://aws.amazon.com/). An AWS account offers 12 months free for certain services, including 
@@ -47,7 +47,7 @@ When setting up a new application environment, select the .NET (Windows/IIS) pla
 
 * Open the project in Visual Studio IDE. Edit the **Web.Config** file to modify the app settings with the properties of 
 the database you just created.
-!([Web.Config file modification](/docs/database_configuration.jpg)
+![Web.Config file modification](/docs/database_configuration.jpg)
 
 * Enable Inbound traffic from Anywhere on the MS SQL database instance. This should only be temporary during the development process.
 
