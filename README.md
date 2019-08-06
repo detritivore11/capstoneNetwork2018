@@ -22,14 +22,16 @@ Visual Studio IDE, which will be used for development of the application, and ot
 
 * Select and install the **.NET desktop development** and the **ASP.NET and web development** workloads. 
 They both include tools and libraries that will be used for the project.
+
 ![ASP.NET Workload](/docs/asp.net_workload.jpg)
 
 * Install the AWS Toolkit for Visual Studio extension. This can be done in one of two ways:
 	* Download the extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.AWSToolkitforVisualStudio2017).
 	
 	* Open the Visual Studio IDE and go to **Tools > Extensions and Updates > Online > Visual Studio Marketplace**. 
-	Search for AWS and download the AWS Toolkit for Visual Studio 2017 and 2019. You may need to restart the Visual Studio IDE 
+	Search for AWS and download **AWS Toolkit for Visual Studio 2017 and 2019**. You may need to restart the Visual Studio IDE 
 	for the extension to be installed properly.
+	
 	![AWS Extension](/docs/aws_extension.jpg)
 	
 ### AWS Elastic Beanstalk and RDS Configuration
@@ -47,7 +49,8 @@ When setting up a new application environment, select the .NET (Windows/IIS) pla
 
 * Open the project in Visual Studio IDE. Edit the **Web.Config** file to modify the app settings with the properties of 
 the database you just created.
-![Web.Config file modification](/docs/database_configuration.jpg)
+
+![Web.Config file modification](/docs/database_configuration.JPG)
 
 * Enable Inbound traffic from Anywhere on the MS SQL database instance. This should only be temporary during the development process.
 
@@ -57,7 +60,7 @@ the database you just created.
 ```
 Update-Database
 ```
-This will create the tables and seeded data on the RDS database. For more information about these commands see the [Entity Framework Core tools reference](https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell).
+  This will create the tables and seeded data on the RDS database. For more information about these commands see the [Entity Framework Core tools reference](https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell).
 
 * Verify that the application is working by running it using IIS. Add /api/vehicle to the localhost url. You should see the following response:
 ``` JSON
